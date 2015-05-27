@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14C109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Search View Contoller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="SearchViewContoller" customModule="Echo_Nest_App" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -15,11 +16,133 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <subviews>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Search for an artist..." textAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="mvM-Iu-cIt">
+                                <rect key="frame" x="173" y="285" width="254" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" returnKeyType="search"/>
+                                <connections>
+                                    <action selector="searchForArtist:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="8AB-EX-K1x"/>
+                                    <action selector="textFieldDoneEditing:" destination="BYZ-38-t0r" eventType="editingDidEnd" id="8cK-EC-1Yb"/>
+                                    <action selector="textFieldDoneEditing:" destination="BYZ-38-t0r" eventType="editingDidEndOnExit" id="bd3-RI-yhf"/>
+                                    <segue destination="GJk-P5-FJ8" kind="show" identifier="sendArtistID" id="pFE-pS-Xkh"/>
+                                </connections>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Hm-cb-5KG">
+                                <rect key="frame" x="489" y="67" width="46" height="30"/>
+                                <state key="normal" title="Button">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <segue destination="GJk-P5-FJ8" kind="show" id="4Mw-vn-heb"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="0.078910692069999996" blue="0.19531814189999999" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="centerY" secondItem="mvM-Iu-cIt" secondAttribute="centerY" id="DmG-16-DUO"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="mvM-Iu-cIt" secondAttribute="trailing" constant="157" id="Mhz-qr-Ddd"/>
+                            <constraint firstItem="mvM-Iu-cIt" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="157" id="Ufr-Dl-QCW"/>
+                            <constraint firstAttribute="centerX" secondItem="mvM-Iu-cIt" secondAttribute="centerX" id="hOu-dh-fbc"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="searchInput" destination="mvM-Iu-cIt" id="CeR-4I-dkr"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="384" y="396"/>
+        </scene>
+        <!--Root View Controller-->
+        <scene sceneID="V5p-i2-YOq">
+            <objects>
+                <tableViewController clearsSelectionOnViewWillAppear="NO" id="EQ8-Ou-eq6" customClass="MasterTableViewController" customModule="Echo_Nest_App" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="YMs-WM-p1f">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <prototypes>
+                            <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="Cell" id="qAC-dt-nGV">
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="qAC-dt-nGV" id="3RB-yb-JV9">
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="z15-h4-p9b" kind="showDetail" identifier="artistWebpage" id="urS-V7-Cqw"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="EQ8-Ou-eq6" id="goI-6k-Tb3"/>
+                            <outlet property="delegate" destination="EQ8-Ou-eq6" id="BDt-1y-Rvm"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Root View Controller" id="pHK-gX-rkk"/>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Lh7-63-Kqb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2776" y="64"/>
+        </scene>
+        <!--Artist Webpage-->
+        <scene sceneID="qfN-OC-T9n">
+            <objects>
+                <viewController title="Artist Webpage" id="z15-h4-p9b" customClass="ArtistWebpageViewController" customModule="Echo_Nest_App" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Ym3-lU-Heu"/>
+                        <viewControllerLayoutGuide type="bottom" id="yxf-8z-ktL"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Wyg-mR-0Vt">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <webView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qYz-i6-Fk2">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </webView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="webView" destination="qYz-i6-Fk2" id="9Iq-AF-32j"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MF0-CW-JFD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1941" y="780"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Eam-pk-RT5">
+            <objects>
+                <navigationController id="kib-se-n3Q" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="829-MO-Fg7">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="EQ8-Ou-eq6" kind="relationship" relationship="rootViewController" id="bcS-Z4-6in"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2KP-FP-M2X" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1956" y="64"/>
+        </scene>
+        <!--Split View Controller-->
+        <scene sceneID="yGD-Ws-pNE">
+            <objects>
+                <splitViewController id="GJk-P5-FJ8" sceneMemberID="viewController">
+                    <connections>
+                        <segue destination="kib-se-n3Q" kind="relationship" relationship="masterViewController" id="gLc-IS-EGD"/>
+                        <segue destination="z15-h4-p9b" kind="relationship" relationship="detailViewController" id="EXn-F9-DBR"/>
+                    </connections>
+                </splitViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="105-KN-r4a" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1136" y="396"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="pFE-pS-Xkh"/>
+        <segue reference="urS-V7-Cqw"/>
+    </inferredMetricsTieBreakers>
 </document>
